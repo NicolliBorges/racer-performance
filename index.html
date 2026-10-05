@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Racer Performance · Preparação de motores em São Paulo</title>
+<meta name="description" content="Preparação de motores multimarcas desde 1989. Injeção programável FuelTech, remap de centrais, dinamômetro 4x4 Servitec e bancada de fluxo. Vila Maria, São Paulo.">
+<meta name="theme-color" content="#0a0a0b">
+<meta property="og:title" content="Racer Performance · dedicated to performance">
+<meta property="og:description" content="Preparação de motores, injeção FuelTech e dinamômetro 4x4 na Vila Maria, SP.">
+<meta property="og:image" content="https://nicolliborges.github.io/racer-performance/img/oficina-evos.jpg">
+<meta property="og:url" content="https://nicolliborges.github.io/racer-performance/">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo-racer.png">
+<style>
+  @font-face { font-family: "Barlow Condensed"; font-weight: 600; font-display: swap; src: url(fonts/barlow-condensed-latin-600-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: swap; src: url(fonts/barlow-condensed-latin-700-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-style: italic; font-display: swap; src: url(fonts/barlow-condensed-latin-700-italic.woff2) format("woff2"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 800; font-display: swap; src: url(fonts/barlow-condensed-latin-800-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 400; font-display: swap; src: url(fonts/inter-latin-400-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 500; font-display: swap; src: url(fonts/inter-latin-500-normal.woff2) format("woff2"); }
+  @font-face { font-family: "Inter"; font-weight: 600; font-display: swap; src: url(fonts/inter-latin-600-normal.woff2) format("woff2"); }
+
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #101012;
+    --panel: #151518;
+    --line: rgba(255,255,255,.09);
+    --text: #f3f3f4;
+    --muted: #9c9ca5;
+    --red: #e3141c;
+    --red2: #ff3b3b;
+    --silver: linear-gradient(180deg, #ffffff 0%, #d9dade 45%, #8f9198 100%);
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  .wrap { width: min(1200px, 100% - 40px); margin-inline: auto; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font: 700 14px/1 var(--display); letter-spacing: .18em; text-transform: uppercase; color: var(--red2); }
+  .eyebrow::before { content: ""; width: 28px; height: 2px; background: var(--red); transform: skewX(-30deg); }
+  h1, h2, h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: .01em; line-height: .92; margin: 0; }
+  h2 { font-size: clamp(40px, 6vw, 76px); }
+  h2 em, h1 em { font-style: italic; color: var(--red); }
+  .lead { color: var(--muted); font-size: 18px; max-width: 46ch; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 54px; padding: 0 26px; font: 700 17px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; border: 1.5px solid transparent; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); transition: background .25s, transform .25s; }
+  .btn-red { background: var(--red); color: #fff; }
+  .btn-red:hover { background: #ff1f28; transform: translateY(-2px); }
+  .btn-line { background: rgba(255,255,255,.06); color: #fff; }
+  .btn-line:hover { background: rgba(255,255,255,.12); }
+  .btn svg { width: 20px; height: 20px; }
+
+  /* faixa de prévia */
+  .preview-bar { position: relative; z-index: 60; background: #fff; color: #111; font: 500 13px/1.3 var(--body); text-align: center; padding: 8px 40px; }
+  .preview-bar b { color: var(--red); }
+
+  /* header */
+  .top { position: sticky; top: 0; z-index: 50; background: rgba(10,10,11,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 20px; }
+  .top-logo img { height: 40px; width: auto; }
+  .nav { display: flex; gap: 28px; font: 600 16px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #cfcfd4; }
+  .nav a:hover { color: #fff; }
+  .top .btn { height: 44px; padding: 0 18px; font-size: 15px; }
+
+  /* hero */
+  .hero { position: relative; min-height: calc(100svh - 106px); display: grid; align-items: end; overflow: hidden; isolation: isolate; }
+  .hero-bg { position: absolute; inset: 0; z-index: -2; }
+  .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.35) contrast(1.05) brightness(.62); transform: scale(1.08); }
+  .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background:
+      linear-gradient(90deg, rgba(10,10,11,.96) 0%, rgba(10,10,11,.72) 45%, rgba(10,10,11,.25) 100%),
+      linear-gradient(0deg, var(--bg) 0%, transparent 40%),
+      radial-gradient(60% 60% at 15% 80%, rgba(227,20,28,.28), transparent 70%); }
+  .hero .wrap { padding: 80px 0 72px; }
+  .hero h1 { font-size: clamp(54px, 9vw, 128px); max-width: 11ch; }
+  .hero h1 .silver { background: var(--silver); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { margin: 22px 0 32px; font-size: clamp(17px, 1.6vw, 20px); color: #c7c7cd; }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+  .slash { position: absolute; right: -10%; bottom: 18%; width: 70%; height: 6px; background: linear-gradient(90deg, transparent, var(--red) 30%, var(--red2)); transform: rotate(-8deg); opacity: .85; z-index: -1; filter: drop-shadow(0 0 18px rgba(227,20,28,.8)); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); margin-top: 64px; }
+  .stat { padding: 22px 20px 0 0; }
+  .stat b { display: block; font: 800 clamp(30px, 3.6vw, 46px)/1 var(--display); text-transform: uppercase; }
+  .stat b i { color: var(--red); font-style: normal; }
+  .stat span { color: var(--muted); font-size: 14px; }
+
+  /* motor 3D */
+  .engine { position: relative; height: 620vh; background: radial-gradient(70% 50% at 65% 45%, rgba(227,20,28,.12), transparent 70%), var(--bg); }
+  .engine-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: grid; grid-template-columns: minmax(300px, 400px) 1fr; }
+  .engine-stage::before { content: ""; position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px); background-size: 64px 64px; -webkit-mask-image: radial-gradient(60% 60% at 65% 50%, #000, transparent); mask-image: radial-gradient(60% 60% at 65% 50%, #000, transparent); }
+  #engine-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .engine-copy { position: relative; z-index: 2; align-self: center; padding-left: max(20px, 50vw - 600px); padding-right: 10px; }
+  .engine-copy h2 { font-size: clamp(38px, 4.4vw, 60px); margin: 14px 0 26px; }
+  .esteps { list-style: none; margin: 0; padding: 0; position: relative; }
+  .esteps::before { content: ""; position: absolute; left: 15px; top: 10px; bottom: 10px; width: 2px; background: var(--line); }
+  .esteps .fill { position: absolute; left: 15px; top: 10px; width: 2px; height: calc(100% - 20px); background: var(--red); transform-origin: top; transform: scaleY(0); }
+  .estep { position: relative; display: grid; grid-template-columns: 32px 1fr; gap: 14px; padding: 9px 0; opacity: .35; transition: opacity .35s; }
+  .estep.on { opacity: 1; }
+  .estep .n { width: 32px; height: 32px; display: grid; place-items: center; font: 700 14px/1 var(--display); background: var(--bg); border: 1.5px solid rgba(255,255,255,.25); transform: skewX(-10deg); transition: .35s; position: relative; z-index: 1; }
+  .estep.on .n { background: var(--red); border-color: var(--red); box-shadow: 0 0 22px rgba(227,20,28,.6); }
+  .estep b { display: block; font: 700 22px/1.1 var(--display); text-transform: uppercase; letter-spacing: .02em; margin-top: 4px; }
+  .estep p { margin: 6px 0 0; color: var(--muted); font-size: 14.5px; max-height: 0; overflow: hidden; transition: max-height .45s; }
+  .estep.on p { max-height: 90px; }
+  .labels { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+  .tag { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 10px; opacity: 0; transition: opacity .3s; white-space: nowrap; }
+  .tag.on { opacity: 1; }
+  .tag i { width: 12px; height: 12px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 5px rgba(227,20,28,.25), 0 0 20px var(--red); flex: none; }
+  .tag span { font: 700 15px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; background: rgba(10,10,11,.82); border: 1px solid var(--line); padding: 8px 12px; }
+  .engine-fallback { display: none; position: absolute; inset: 0; object-fit: cover; opacity: .5; }
+  .no-webgl .engine-fallback { display: block; }
+  .scroll-hint { position: absolute; right: 28px; bottom: 26px; z-index: 3; font: 600 13px/1 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 10px; }
+  .scroll-hint::after { content: ""; width: 40px; height: 2px; background: linear-gradient(90deg, var(--red), transparent); }
+
+  /* dinamômetro */
+  .dyno { padding: 140px 0 120px; position: relative; overflow: hidden; }
+  .dyno-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: center; }
+  .dyno-photos { position: relative; aspect-ratio: 1.05; }
+  .dyno-photos .p1 { position: absolute; inset: 0 18% 14% 0; object-fit: cover; width: 82%; height: 86%; clip-path: polygon(0 0, 100% 0, 100% 88%, 92% 100%, 0 100%); }
+  .dyno-photos .p2 { position: absolute; right: 0; bottom: 0; width: 46%; aspect-ratio: 1.3; object-fit: cover; border: 6px solid var(--bg); box-shadow: 0 30px 60px rgba(0,0,0,.6); }
+  .dyno-photos .badge { position: absolute; left: -12px; bottom: 6%; background: var(--red); padding: 14px 20px; font: 800 22px/1 var(--display); text-transform: uppercase; transform: skewX(-10deg); box-shadow: 0 20px 40px rgba(227,20,28,.35); }
+  .dyno-photos .badge small { display: block; font: 600 12px/1.2 var(--body); letter-spacing: .08em; opacity: .9; margin-top: 4px; }
+  .checks { list-style: none; padding: 0; margin: 30px 0 34px; display: grid; gap: 14px; }
+  .checks li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; color: #d8d8dc; }
+  .checks li::before { content: ""; width: 18px; height: 18px; margin-top: 3px; background: var(--red); clip-path: polygon(14% 52%, 0 66%, 38% 100%, 100% 22%, 86% 8%, 38% 72%); }
+
+  /* serviços */
+  .services { padding: 120px 0; background: var(--bg2); border-block: 1px solid var(--line); }
+  .services-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 56px; flex-wrap: wrap; }
+  .svc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+  .svc { position: relative; background: var(--bg2); padding: 34px 30px 36px; overflow: hidden; transition: background .3s; }
+  .svc:hover { background: #17171a; }
+  .svc::after { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 0; background: var(--red); transition: width .45s; }
+  .svc:hover::after { width: 100%; }
+  .svc .num { font: 800 15px/1 var(--display); color: var(--red); letter-spacing: .1em; }
+  .svc h3 { font-size: 30px; margin: 16px 0 12px; }
+  .svc p { margin: 0; color: var(--muted); font-size: 15.5px; }
+  .svc .ico { position: absolute; right: 24px; top: 26px; width: 44px; height: 44px; color: rgba(255,255,255,.18); }
+
+  /* oficina */
+  .gallery { padding: 130px 0 120px; }
+  .bento { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 120px; gap: 14px; margin-top: 48px; }
+  .bento figure { position: relative; margin: 0; overflow: hidden; background: #111; }
+  .bento img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s; filter: saturate(.9); }
+  .bento figure:hover img { transform: scale(1.06); filter: saturate(1.1); }
+  .bento figcaption { position: absolute; left: 14px; bottom: 12px; font: 700 14px/1 var(--display); letter-spacing: .12em; text-transform: uppercase; background: rgba(10,10,11,.8); padding: 8px 10px; }
+  .b1 { grid-column: span 7; grid-row: span 4; } .b2 { grid-column: span 5; grid-row: span 2; } .b3 { grid-column: span 5; grid-row: span 2; }
+  .b4 { grid-column: span 4; grid-row: span 3; } .b5 { grid-column: span 4; grid-row: span 3; } .b6 { grid-column: span 4; grid-row: span 3; }
+
+  /* história */
+  .history { padding: 120px 0; background: var(--bg2); border-top: 1px solid var(--line); }
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 60px; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: linear-gradient(90deg, var(--red), rgba(227,20,28,.15)); }
+  .tl { padding-right: 26px; position: relative; }
+  .tl::before { content: ""; display: block; width: 16px; height: 16px; margin: 6px 0 26px; background: var(--red); transform: rotate(45deg); box-shadow: 0 0 20px rgba(227,20,28,.7); }
+  .tl b { font: 800 54px/1 var(--display); background: var(--silver); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .tl h3 { font-size: 24px; margin: 10px 0 8px; }
+  .tl p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* contato */
+  .contact { position: relative; padding: 140px 0 120px; overflow: hidden; }
+  .contact::before { content: ""; position: absolute; inset: 0; background: radial-gradient(50% 60% at 20% 40%, rgba(227,20,28,.2), transparent 70%); pointer-events: none; }
+  .contact-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: stretch; }
+  .contact h2 { font-size: clamp(46px, 6.5vw, 92px); }
+  .info { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin: 34px 0; }
+  .info > div { background: var(--bg); padding: 18px 20px; display: grid; grid-template-columns: 120px 1fr; gap: 14px; }
+  .info small { font: 700 13px/1.5 var(--display); letter-spacing: .14em; text-transform: uppercase; color: var(--red2); }
+  .socials { display: flex; gap: 10px; flex-wrap: wrap; }
+  .socials a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--line); font: 600 15px/1 var(--display); letter-spacing: .08em; text-transform: uppercase; }
+  .socials a:hover { border-color: var(--red); }
+  .socials svg { width: 18px; height: 18px; }
+  .map { min-height: 420px; border: 1px solid var(--line); filter: grayscale(1) invert(.92) contrast(.9); }
+  .map iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  footer { border-top: 1px solid var(--line); padding: 34px 0; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+  footer img { height: 34px; width: auto; }
+  .kodra { color: #6f6f78; } .kodra a { color: #b9b9c0; text-decoration: underline; text-underline-offset: 3px; }
+
+  .wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 70; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 12px 30px rgba(0,0,0,.45); transition: transform .25s; }
+  .wa-float:hover { transform: scale(1.08); }
+  .wa-float svg { width: 32px; height: 32px; }
+
+  .reveal { opacity: 0; transform: translateY(34px); }
+
+  @media (max-width: 960px) {
+    .nav { display: none; }
+    .stats { grid-template-columns: 1fr 1fr; gap: 0 20px; }
+    .engine-stage { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .engine-copy { align-self: start; padding: 84px 20px 26px; background: linear-gradient(180deg, var(--bg) 0%, var(--bg) 70%, rgba(10,10,11,0) 100%); }
+    .engine-copy h2 { font-size: 34px; margin: 10px 0 14px; }
+    .esteps::before, .esteps .fill { display: none; }
+    .estep { display: none; opacity: 1; }
+    .estep.on { display: grid; }
+    .estep.on p { max-height: none; }
+    .labels { display: none; }
+    .scroll-hint { display: none; }
+    .dyno-grid, .contact-grid { grid-template-columns: 1fr; }
+    .svc-grid { grid-template-columns: 1fr; }
+    .bento { grid-auto-rows: 90px; }
+    .b1 { grid-column: span 12; grid-row: span 3; } .b2, .b3 { grid-column: span 6; grid-row: span 2; }
+    .b4, .b5, .b6 { grid-column: span 12; grid-row: span 3; }
+    .timeline { grid-template-columns: 1fr 1fr; gap: 40px 0; }
+    .timeline::before { display: none; }
+    .info > div { grid-template-columns: 1fr; gap: 4px; }
+  }
+  @media (max-width: 560px) {
+    .top .btn span { display: none; }
+    .top .btn { padding: 0 14px; }
+    .hero .wrap { padding-bottom: 48px; }
+    .hero-ctas .btn { width: 100%; justify-content: center; }
+    .timeline { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+
+<div class="preview-bar">Prévia do novo site da <b>Racer Performance</b> · criada pela Kodra</div>
+
+<header class="top">
+  <div class="wrap">
+    <a href="#topo" class="top-logo" aria-label="Racer Performance"><img src="img/logo-racer.png" alt="Racer · dedicated to performance" width="604" height="208"></a>
+    <nav class="nav">
+      <a href="#motor">O motor</a>
+      <a href="#dinamometro">Dinamômetro</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#oficina">Oficina</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-red wa-link" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.3 4.8 4.9-1.3A9.8 9.8 0 1 0 12 2.2zm5.6 13.9c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .2 0 .7-.1 1.3z"/></svg>
+      <span>Orçamento</span>
+    </a>
+  </div>
+</header>
+
+<main id="topo">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"><img src="img/oficina-evos.jpg" alt="Oficina da Racer com Lancer Evolution em preparação"></div>
+    <div class="slash" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow reveal">Preparação de motores · Vila Maria, SP</span>
+      <h1 class="reveal" style="margin-top:18px">Potência <span class="silver">de verdade,</span> <em>medida.</em></h1>
+      <p class="lead reveal">Desde 1989 preparando motores multimarcas, com injeção programável FuelTech, remap de centrais e medição de potência no dinamômetro 4x4.</p>
+      <div class="hero-ctas reveal">
+        <a class="btn btn-red wa-link" href="#" target="_blank" rel="noopener">Pedir orçamento no WhatsApp</a>
+        <a class="btn btn-line" href="#motor">Ver o motor por dentro ↓</a>
+      </div>
+      <div class="stats reveal">
+        <div class="stat"><b>1989</b><span>Fernando Kfouri começa na preparação</span></div>
+        <div class="stat"><b>2001</b><span>Fundação da Racer</span></div>
+        <div class="stat"><b>4<i>x</i>4</b><span>Dinamômetro Servitec</span></div>
+        <div class="stat"><b>FuelTech</b><span>Injeção programável</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTOR 3D -->
+  <section class="engine" id="motor">
+    <div class="engine-stage">
+      <img class="engine-fallback" src="img/evo-motor.jpg" alt="">
+      <canvas id="engine-canvas" aria-label="Motor em 3D se abrindo peça por peça"></canvas>
+      <div class="engine-copy">
+        <span class="eyebrow">O motor por dentro</span>
+        <h2>Do cabeçote <em>ao cárter.</em></h2>
+        <ol class="esteps">
+          <span class="fill"></span>
+          <li class="estep"><span class="n">01</span><div><b>Cabeçote</b><p>Medição de fluxo de cabeçotes em bancada Saenz computadorizada, antes e depois do trabalho.</p></div></li>
+          <li class="estep"><span class="n">02</span><div><b>Pistões e virabrequim</b><p>Projetos personalizados de preparação de motores multimarcas, do básico ao competição.</p></div></li>
+          <li class="estep"><span class="n">03</span><div><b>Turbo e injeção</b><p>Tunning de injeções programáveis FuelTech e remap de centrais originais.</p></div></li>
+          <li class="estep"><span class="n">04</span><div><b>Bloco e manutenção</b><p>Revisão padrão de fábrica em carros nacionais e importados, com rapidez e custo acessível.</p></div></li>
+          <li class="estep"><span class="n">05</span><div><b>Tudo medido</b><p>No fim, o resultado vai para o dinamômetro 4x4 Servitec. Potência medida, não prometida.</p></div></li>
+        </ol>
+      </div>
+      <div class="labels" aria-hidden="true">
+        <div class="tag" data-step="0"><i></i><span>Cabeçote · bancada de fluxo</span></div>
+        <div class="tag" data-step="1"><i></i><span>Pistões · bielas · virabrequim</span></div>
+        <div class="tag" data-step="2"><i></i><span>Turbo · FuelTech · remap</span></div>
+        <div class="tag" data-step="3"><i></i><span>Bloco · revisão de fábrica</span></div>
+      </div>
+      <div class="scroll-hint">Role para abrir o motor</div>
+    </div>
+  </section>
+
+  <!-- DINAMÔMETRO -->
+  <section class="dyno" id="dinamometro">
+    <div class="wrap dyno-grid">
+      <div class="dyno-photos reveal">
+        <img class="p1" src="img/evo-dinamometro.jpg" alt="Lancer Evolution no dinamômetro Servitec da Racer">
+        <img class="p2" src="img/fueltech.jpg" alt="Painel FuelTech FT550">
+        <div class="badge">Dinamômetro 4x4<small>Servitec</small></div>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">Medição de potência</span>
+        <h2 style="margin:16px 0 22px">Sem achismo. <em>Com número.</em></h2>
+        <p class="lead">Cada acerto é conferido no dinamômetro 4x4 Servitec. Você vê o antes e o depois do seu carro, medidos na hora.</p>
+        <ul class="checks">
+          <li>Tunning de injeções programáveis FuelTech</li>
+          <li>Remap de centrais originais e acerto de módulos programáveis</li>
+          <li>Medição de fluxo de cabeçotes em bancada Saenz</li>
+          <li>Projetos personalizados, multimarcas</li>
+        </ul>
+        <a class="btn btn-red wa-link" href="#" target="_blank" rel="noopener">Agendar uma medição</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="services" id="servicos">
+    <div class="wrap">
+      <div class="services-head reveal">
+        <div><span class="eyebrow">Serviços</span><h2 style="margin-top:16px">O que fazemos <em>pelo seu carro.</em></h2></div>
+        <p class="lead">Ampla experiência e equipamentos de diagnóstico de última geração, para preparação e para o dia a dia.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc reveal"><span class="num">01</span><h3>Preparação de motores</h3><p>Projetos personalizados de preparação de motores multimarcas.</p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 10h3l2-3h6l2 3h3v7h-3l-2 2H9l-2-2H4z"/><path d="M12 7V4M9 4h6"/></svg></article>
+        <article class="svc reveal"><span class="num">02</span><h3>Injeção FuelTech</h3><p>Tunning de injeções programáveis FuelTech, com acerto fino para cada projeto.</p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M7 13l3-3 3 2 4-4"/><path d="M9 21h6"/></svg></article>
+        <article class="svc reveal"><span class="num">03</span><h3>Remap de centrais</h3><p>Remap de centrais originais e acerto de módulos de injeção programáveis.</p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></article>
+        <article class="svc reveal"><span class="num">04</span><h3>Medição de potência</h3><p>Dinamômetro 4x4 Servitec para medir o resultado antes e depois.</p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-6"/></svg></article>
+        <article class="svc reveal"><span class="num">05</span><h3>Revisão de fábrica</h3><p>Revisão conforme o manual, em nacionais e importados, com rapidez e custo mais acessível.</p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></article>
+        <article class="svc reveal"><span class="num">06</span><h3>Análise de compra</h3><p>Enviamos um profissional para avaliar a mecânica do carro antes de você fechar negócio.</p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M8.5 11l2 2 3.5-3.5"/></svg></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFICINA -->
+  <section class="gallery" id="oficina">
+    <div class="wrap">
+      <div class="reveal"><span class="eyebrow">A oficina</span><h2 style="margin-top:16px">Onde o projeto <em>acontece.</em></h2></div>
+      <div class="bento">
+        <figure class="b1 reveal"><img src="img/oficina.jpg" alt="Galpão da Racer Performance" loading="lazy"><figcaption>Vila Maria · São Paulo</figcaption></figure>
+        <figure class="b2 reveal"><img src="img/evo-motor.jpg" alt="Lancer Evolution com o cofre aberto" loading="lazy"><figcaption>Preparação</figcaption></figure>
+        <figure class="b3 reveal"><img src="img/fueltech.jpg" alt="Painel FuelTech" loading="lazy"><figcaption>FuelTech</figcaption></figure>
+        <figure class="b4 reveal"><img src="img/evo-prata-dino.jpg" alt="Lancer Evolution prata no dinamômetro" loading="lazy"><figcaption>Dinamômetro</figcaption></figure>
+        <figure class="b5 reveal"><img src="img/ferrari-rx7.jpg" alt="Ferrari e RX-7 na oficina" loading="lazy"><figcaption>Importados</figcaption></figure>
+        <figure class="b6 reveal"><img src="img/evo-dinamometro.jpg" alt="Lancer Evolution vermelho no dinamômetro" loading="lazy"><figcaption>Medição de potência</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTÓRIA -->
+  <section class="history">
+    <div class="wrap">
+      <div class="reveal"><span class="eyebrow">Nossa história</span><h2 style="margin-top:16px">Mais de três décadas <em>de motor.</em></h2></div>
+      <div class="timeline">
+        <div class="tl reveal"><b>1989</b><h3>O começo</h3><p>Fernando Kfouri começa a atuar na reparação e preparação de motores.</p></div>
+        <div class="tl reveal"><b>2001</b><h3>Nasce a Racer</h3><p>Inauguração da Racer, com serviços personalizados para cada cliente.</p></div>
+        <div class="tl reveal"><b>2017</b><h3>Nova sede</h3><p>A Racer inaugura uma nova sede e segue evoluindo no atendimento.</p></div>
+        <div class="tl reveal"><b>Hoje</b><h3>Racer Performance</h3><p>Dinamômetro 4x4, injeção FuelTech e bancada de fluxo na Vila Maria.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contact" id="contato">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <span class="eyebrow">Contato</span>
+        <h2 style="margin-top:16px">Vamos falar <em>do seu projeto?</em></h2>
+        <div class="info">
+          <div><small>Endereço</small><span>Rua Alcântara, 205 · Vila Maria · São Paulo, SP · 02110-010</span></div>
+          <div><small>Horário</small><span>Segunda a sexta, das 9h às 19h</span></div>
+          <div><small>WhatsApp</small><span>(11) 94035-8982</span></div>
+          <div><small>E-mail</small><span>contato@racerpreparacoes.com.br</span></div>
+        </div>
+        <div class="hero-ctas" style="margin-bottom:22px">
+          <a class="btn btn-red wa-link" href="#" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+        </div>
+        <div class="socials">
+          <a href="https://www.instagram.com/racerpreparacoes/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a>
+          <a href="https://www.youtube.com/channel/UCP_78AirLvcg1TwWpYsvFfQ" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3z"/></svg>YouTube</a>
+          <a href="https://www.facebook.com/racerpreparacoes/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8h3V4h-3a4 4 0 0 0-4 4v2H8v4h2v8h4v-8h3l1-4h-4V8z"/></svg>Facebook</a>
+        </div>
+      </div>
+      <div class="map reveal"><iframe title="Mapa da Racer Performance" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Rua%20Alc%C3%A2ntara%2C%20205%20-%20Vila%20Maria%2C%20S%C3%A3o%20Paulo%20-%20SP&output=embed"></iframe></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="img/logo-racer.png" alt="Racer Performance" width="604" height="208">
+    <span>© 2026 Racer Performance · Preparação de motores · São Paulo</span>
+    <span class="kodra">Site por <a href="https://kodratecnologia.com.br" target="_blank" rel="noopener">Kodra</a></span>
+  </div>
+</footer>
+
+<a class="wa-float wa-link" href="#" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2A9.8 9.8 0 0 0 3.6 17l-1.3 4.8 4.9-1.3A9.8 9.8 0 1 0 12 2.2zm5.6 13.9c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.8-2.2 1-2.5c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .2 0 .7-.1 1.3z"/></svg>
+</a>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+<script>
+  // Links de WhatsApp
+  const WA = 'https://wa.me/5511940358982?text=' + encodeURIComponent('Olá! Vim pelo site da Racer e gostaria de um orçamento.');
+  document.querySelectorAll('.wa-link').forEach(a => a.href = WA);
+
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && window.Lenis) {
+    const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(t => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const id = a.getAttribute('href'); if (id.length < 2) return;
+      e.preventDefault(); lenis.scrollTo(id === '#topo' ? 0 : id, { offset: -72, duration: 1.4 });
+    }));
+  }
+  // Revelar ao rolar
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.to(el, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+  });
+  gsap.to('.hero-bg img', { scale: 1, yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { RoomEnvironment } from './vendor/RoomEnvironment.js';
+import { RoundedBoxGeometry } from './vendor/RoundedBoxGeometry.js';
+
+const canvas = document.getElementById('engine-canvas');
+const stage = document.querySelector('.engine-stage');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+} catch (e) { document.documentElement.classList.add('no-webgl'); throw e; }
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.85;
+
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+const key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(6, 9, 7); scene.add(key);
+const fill = new THREE.DirectionalLight(0xbfd0ff, 0.5); fill.position.set(-7, 3, 6); scene.add(fill);
+const rim = new THREE.PointLight(0xff2a2a, 60, 40, 1.6); rim.position.set(-6, 3, -6); scene.add(rim);
+const rim2 = new THREE.PointLight(0xff3b3b, 25, 30, 1.6); rim2.position.set(7, -2, -4); scene.add(rim2);
+
+// ---------- Materiais ----------
+const MAT = {
+  iron: { color: 0x2c2d31, metalness: 0.6, roughness: 0.48 },
+  alu: { color: 0xb8bcc3, metalness: 1, roughness: 0.3 },
+  chrome: { color: 0xeeeeef, metalness: 1, roughness: 0.12 },
+  red: { color: 0xc4121a, metalness: 0.3, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.12, physical: true },
+  black: { color: 0x141416, metalness: 0.25, roughness: 0.55 },
+  hot: { color: 0x5a4a3f, metalness: 0.85, roughness: 0.42 },
+  rubber: { color: 0x0e0e10, metalness: 0, roughness: 0.8 },
+};
+const parts = [];
+const engine = new THREE.Group();
+scene.add(engine);
+
+function part(name, offset, anchor) {
+  const g = new THREE.Group();
+  engine.add(g);
+  const p = { name, group: g, offset: new THREE.Vector3(...offset), anchor: new THREE.Vector3(...anchor), mats: new Map(), dim: 1 };
+  p.mat = (k) => {
+    if (!p.mats.has(k)) {
+      const d = MAT[k];
+      const m = d.physical ? new THREE.MeshPhysicalMaterial({ color: d.color, metalness: d.metalness, roughness: d.roughness, clearcoat: d.clearcoat, clearcoatRoughness: d.clearcoatRoughness })
+                           : new THREE.MeshStandardMaterial({ color: d.color, metalness: d.metalness, roughness: d.roughness });
+      m.userData.base = new THREE.Color(d.color);
+      p.mats.set(k, m);
+    }
+    return p.mats.get(k);
+  };
+  p.add = (geo, k, pos = [0, 0, 0], rot = [0, 0, 0]) => { const m = new THREE.Mesh(geo, p.mat(k)); m.position.set(...pos); m.rotation.set(...rot); g.add(m); return m; };
+  parts.push(p);
+  return p;
+}
+const X = [-1.5, -0.5, 0.5, 1.5];
+const HALF = Math.PI / 2;
+
+// Bloco
+const bloco = part('bloco', [0, 0, 0], [-2.2, 0.2, 1.1]);
+bloco.add(new RoundedBoxGeometry(4.4, 2.3, 2.1, 4, 0.12), 'iron');
+for (let i = 0; i < 5; i++) for (const z of [1.07, -1.07]) bloco.add(new THREE.BoxGeometry(0.14, 1.9, 0.1), 'iron', [-1.8 + i * 0.9, -0.1, z]);
+for (const x of X) bloco.add(new THREE.CylinderGeometry(0.43, 0.43, 0.04, 40), 'black', [x, 1.16, 0]);
+bloco.add(new THREE.CylinderGeometry(0.16, 0.16, 0.3, 24), 'alu', [-2.3, 0.6, 0.5], [0, 0, HALF]);
+
+// Cárter
+const carter = part('carter', [0, -2.15, 0], [0, -1.8, 1]);
+carter.add(new RoundedBoxGeometry(4.0, 0.85, 1.95, 4, 0.14), 'iron', [0, -1.6, 0]);
+for (let i = 0; i < 7; i++) carter.add(new THREE.BoxGeometry(0.08, 0.5, 2.0), 'iron', [-1.65 + i * 0.55, -1.75, 0]);
+
+// Virabrequim
+const vira = part('virabrequim', [0, -1.15, 0], [2.6, -0.9, 0]);
+vira.add(new THREE.CylinderGeometry(0.13, 0.13, 5.3, 24), 'chrome', [0, -0.9, 0], [0, 0, HALF]);
+for (const x of X) for (const dx of [-0.2, 0.2]) vira.add(new THREE.CylinderGeometry(0.46, 0.46, 0.12, 6, 1), 'chrome', [x + dx, -0.9, 0], [0, 0, HALF]);
+vira.add(new THREE.CylinderGeometry(0.55, 0.55, 0.28, 48), 'black', [-2.75, -0.9, 0], [0, 0, HALF]);
+vira.add(new THREE.CylinderGeometry(1.0, 1.0, 0.14, 64), 'alu', [2.75, -0.9, 0], [0, 0, HALF]);
+
+// Pistões e bielas
+const pist = part('pistoes', [0, 1.15, 0], [-1.95, 0.8, 0.4]);
+for (const x of X) {
+  pist.add(new THREE.CylinderGeometry(0.4, 0.4, 0.42, 40), 'alu', [x, 0.75, 0]);
+  for (let r = 0; r < 2; r++) pist.add(new THREE.TorusGeometry(0.405, 0.018, 8, 40), 'black', [x, 0.86 - r * 0.08, 0], [HALF, 0, 0]);
+  pist.add(new THREE.BoxGeometry(0.16, 1.25, 0.12), 'chrome', [x, 0.05, 0]);
+}
+
+// Cabeçote
+const cab = part('cabecote', [0, 1.4, 0], [-2.2, 1.65, 1.05]);
+cab.add(new RoundedBoxGeometry(4.4, 0.72, 2.05, 3, 0.08), 'alu', [0, 1.55, 0]);
+for (let i = 0; i < 8; i++) cab.add(new THREE.BoxGeometry(0.05, 0.5, 2.1), 'alu', [-1.96 + i * 0.56, 1.55, 0]);
+for (const x of X) for (const z of [0.55, -0.55]) cab.add(new THREE.CylinderGeometry(0.09, 0.09, 0.2, 16), 'chrome', [x, 1.95, z]);
+
+// Comandos
+const cmd = part('comandos', [0, 2.25, 0], [-2.3, 2.2, 0.5]);
+for (const z of [-0.45, 0.45]) {
+  cmd.add(new THREE.CylinderGeometry(0.1, 0.1, 4.3, 24), 'chrome', [0, 2.12, z], [0, 0, HALF]);
+  for (const x of X) for (const dx of [-0.15, 0.15]) cmd.add(new THREE.CylinderGeometry(0.18, 0.18, 0.1, 12), 'chrome', [x + dx, 2.12, z], [0, 0, HALF]).scale.set(1, 1, 0.7);
+  cmd.add(new THREE.CylinderGeometry(0.46, 0.46, 0.1, 56), 'red', [-2.25, 2.12, z], [0, 0, HALF]);
+}
+
+// Tampa de válvulas (vermelha) + logo
+const tampa = part('tampa', [0, 3.15, 0], [0, 2.7, 0]);
+tampa.add(new RoundedBoxGeometry(4.2, 0.46, 1.85, 4, 0.17), 'red', [0, 2.33, 0]);
+for (const x of X) tampa.add(new RoundedBoxGeometry(0.34, 0.26, 0.34, 2, 0.05), 'black', [x, 2.66, -0.42]);
+const logoTex = new THREE.TextureLoader().load('img/logo-racer.png', t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; });
+const logo = new THREE.Mesh(new THREE.PlaneGeometry(2.1, 2.1 * 208 / 604), new THREE.MeshBasicMaterial({ map: logoTex, transparent: true, depthWrite: false }));
+logo.rotation.x = -HALF; logo.position.set(0.1, 2.565, 0.35); tampa.group.add(logo);
+
+// Admissão
+const adm = part('admissao', [0, 0.5, -1.7], [0.6, 2.1, -2.3]);
+adm.add(new RoundedBoxGeometry(3.4, 0.45, 0.5, 3, 0.18), 'alu', [0, 1.95, -1.9]);
+for (const x of X) {
+  const c = new THREE.CatmullRomCurve3([new THREE.Vector3(x, 1.55, -1.0), new THREE.Vector3(x, 1.7, -1.45), new THREE.Vector3(x, 1.9, -1.72)]);
+  adm.add(new THREE.TubeGeometry(c, 20, 0.15, 16), 'alu');
+}
+adm.add(new THREE.CylinderGeometry(0.26, 0.26, 0.4, 36), 'black', [-1.9, 1.95, -1.9], [0, 0, HALF]);
+
+// Escape
+const esc = part('escape', [0, 0, 1.2], [-1, 1, 1.8]);
+for (const x of X) {
+  const c = new THREE.CatmullRomCurve3([new THREE.Vector3(x, 1.5, 1.0), new THREE.Vector3(x, 1.3, 1.5), new THREE.Vector3(x * 0.4 + 0.5, 0.75, 1.85), new THREE.Vector3(0.9, 0.45, 1.95)]);
+  esc.add(new THREE.TubeGeometry(c, 30, 0.13, 14), 'hot');
+}
+
+// Turbo
+const turbo = part('turbo', [0.25, 0.25, 1.7], [0.9, 0.95, 2.2]);
+turbo.add(new THREE.TorusGeometry(0.42, 0.24, 20, 48), 'hot', [0.9, 0.4, 2.2], [0, HALF, 0]);
+turbo.add(new THREE.CylinderGeometry(0.28, 0.28, 0.5, 32), 'alu', [1.25, 0.4, 2.2], [0, 0, HALF]);
+turbo.add(new THREE.TorusGeometry(0.48, 0.27, 20, 48), 'alu', [1.62, 0.4, 2.2], [0, HALF, 0]);
+turbo.add(new THREE.CylinderGeometry(0.3, 0.34, 0.6, 32, 1, true), 'chrome', [2.05, 0.4, 2.2], [0, 0, HALF]);
+turbo.add(new THREE.CylinderGeometry(0.17, 0.17, 0.9, 24), 'alu', [1.62, 1.0, 2.2]);
+
+// Central (ECU)
+const ecu = part('central', [-1.0, -0.5, 2.0], [-1.2, -0.3, 2.9]);
+ecu.add(new RoundedBoxGeometry(1.3, 0.22, 0.9, 3, 0.05), 'black', [-1.2, -0.55, 2.35]);
+ecu.add(new THREE.BoxGeometry(1.32, 0.05, 0.12), 'red', [-1.2, -0.43, 2.82]);
+const scr = new THREE.Mesh(new THREE.PlaneGeometry(0.62, 0.36), new THREE.MeshBasicMaterial({ color: 0xff3b3b }));
+scr.rotation.x = -HALF; scr.position.set(-1.25, -0.435, 2.3); ecu.group.add(scr);
+
+// Sombra de contato
+const sh = document.createElement('canvas'); sh.width = sh.height = 256;
+const sx = sh.getContext('2d'); const gr = sx.createRadialGradient(128, 128, 0, 128, 128, 128);
+gr.addColorStop(0, 'rgba(0,0,0,.65)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); sx.fillStyle = gr; sx.fillRect(0, 0, 256, 256);
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(9, 5), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(sh), transparent: true, depthWrite: false }));
+shadow.rotation.x = -HALF; shadow.position.y = -2.3; scene.add(shadow);
+
+// ---------- Roteiro do scroll ----------
+const STEPS = [
+  { groups: ['cabecote', 'comandos', 'tampa'], from: 0.30, to: 0.44 },
+  { groups: ['pistoes', 'virabrequim'], from: 0.44, to: 0.58 },
+  { groups: ['turbo', 'escape', 'central', 'admissao'], from: 0.58, to: 0.72 },
+  { groups: ['bloco', 'carter'], from: 0.72, to: 0.84 },
+];
+const stepsEl = [...document.querySelectorAll('.estep')];
+const fillEl = document.querySelector('.esteps .fill');
+const tags = [...document.querySelectorAll('.tag')];
+const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+const state = { p: 0 };
+
+gsap.to(state, { p: 1, ease: 'none', scrollTrigger: { trigger: '.engine', start: 'top top', end: 'bottom bottom', scrub: 1.2 } });
+
+const base = { x: 0, y: 0, s: 1 };
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  const mob = w < 960;
+  camera.fov = mob ? 40 : 30;
+  camera.position.set(mob ? 0 : -1.6, mob ? 4.2 : 3.1, mob ? 20 : 16);
+  camera.lookAt(mob ? 0 : -1.6, mob ? 2.5 : 0.4, 0);
+  base.x = mob ? 0 : 0.9; base.y = mob ? -0.4 : -0.1; base.s = mob ? 0.84 : 0.82;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+let visible = true;
+new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(stage);
+
+const tmp = new THREE.Vector3();
+let lastStep = -2;
+function frame(t) {
+  requestAnimationFrame(frame);
+  if (!visible) return;
+  const p = state.p;
+  const explode = smooth(0.08, 0.3, p) * (1 - smooth(0.84, 0.96, p));
+  let active = -1;
+  STEPS.forEach((s, i) => { if (p >= s.from && p < s.to) active = i; });
+  const stepIdx = p >= 0.84 ? 4 : active;
+
+  const sc = base.s * (1 - 0.2 * explode);
+  engine.scale.setScalar(sc);
+  engine.position.set(base.x, base.y - 0.85 * explode * sc, 0);
+  engine.rotation.y = -0.65 + p * 1.25 + Math.sin(t / 2400) * 0.04;
+  engine.rotation.x = 0.22 + smooth(0, 0.3, p) * 0.1;
+  for (const part of parts) {
+    part.group.position.copy(part.offset).multiplyScalar(explode);
+    const hl = active === -1 || STEPS[active].groups.includes(part.name);
+    part.dim += ((hl ? 1 : 0.28) - part.dim) * 0.12;
+    for (const m of part.mats.values()) { m.color.copy(m.userData.base).multiplyScalar(part.dim); m.envMapIntensity = 0.15 + 0.85 * part.dim; }
+  }
+  shadow.material.opacity = 1 - explode * 0.6;
+  renderer.render(scene, camera);
+
+  // rótulos
+  const w = stage.clientWidth, h = stage.clientHeight;
+  tags.forEach((tag, i) => {
+    const on = i === active;
+    tag.classList.toggle('on', on);
+    if (!on) return;
+    const pt = parts.find(pp => pp.name === STEPS[i].groups[0]);
+    tmp.copy(pt.anchor).add(pt.group.position);
+    engine.localToWorld(tmp); tmp.project(camera);
+    tag.style.transform = `translate(${(tmp.x * 0.5 + 0.5) * w - 6}px, ${(-tmp.y * 0.5 + 0.5) * h - 16}px)`;
+  });
+  if (stepIdx !== lastStep) {
+    lastStep = stepIdx;
+    stepsEl.forEach((el, i) => el.classList.toggle('on', i === stepIdx || (stepIdx === -1 && i === 0)));
+  }
+  fillEl.style.transform = `scaleY(${Math.min(1, Math.max(0, (p - 0.28) / 0.66))})`;
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
